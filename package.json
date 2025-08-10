@@ -14,9 +14,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/hasanraiyan/backend-auth/issues"
   },
-  "homepage": "https://github.com/hasanraiyan/backend-auth#readme"
+  "homepage": "https://github.com/hasanraiyan/backend-auth#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "prettier": "3.6.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0"
+  }
 }
