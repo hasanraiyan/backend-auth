@@ -1,5 +1,45 @@
 import Mailgen from "mailgen";
+import nodemailer from "nodemailer";
 
+
+const sendMail = async (options) => {
+    const mailGenerator = new Mailgen({
+        theme: "default",
+        product: {
+            name: "Task Manager",
+            link: "https://Taskmanagelink.com/"
+        }
+    })
+    const emailContent = mailGenerator.generatePlaintext(options.mailgenContent)
+    const emailHtmlContent = mailGenerator.generate(options.mailgenContent);
+
+    const transporter =nodemailer.createTransport({
+        host: process.env.MAILTRAP_SMTP_HOST,
+        port: process.env.MAILTRAP_SMTP_PORT,
+        auth: {
+            user: process.env.MAILTRAP_SMTP_USER,
+            pass: process.env.MAILTRAP_SMTP_PASS
+        }
+    })
+
+    const mailOptions = {
+        from: "taskmanager@gmail.com",
+        to: options.email,
+        subject: options.subject,
+        text: emailContent,
+        html: emailHtmlContent
+    }
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log("Email sent successfully");
+    } catch (error) {
+        console.error("Error sending email:", error);
+        throw new Error("Email sending failed");
+    }
+
+
+}
 const emailVerificationMailgenContent = (username, verificationUrl) => {
     return {
         body: {
@@ -27,7 +67,7 @@ const forgetPasswordMailgenContent = (username, resetUrl) => {
             action: {
                 instructions: "To reset your password, please click the button below:",
                 button: {
-                    color: "#19ac58ff", // Optional action button color
+                    color: "#19ac58ff", 
                     text: "Reset your password",
                     link: resetUrl
                 } 
