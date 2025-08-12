@@ -24,6 +24,12 @@ const generateAccessAndRefreshTokens = async (userId) => {
 const registerUser = asyncHandler(async (req, res) => {
     const { username, email, password, role } = req.body;
 
+    // NOTE: If MongoDB connection isn't established before this query,
+    // Mongoose will buffer the operation and eventually time out with:
+    // "MongooseError: Operation `users.findOne()` buffering timed out".
+    // Likely reasons: DB not connected on app startup (e.g., missing connectDB()),
+    // invalid/unreachable process.env.MONGODB_URI, or network/firewall issues.
+    // Ensure the app connects to MongoDB before handling requests.
     const existedUser = await User.findOne({
         $or: [
             { email: email },
