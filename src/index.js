@@ -8,5 +8,5 @@ dotenv.config({
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, ()=>{
-    console.log(`App is running on port ${PORT} in ${process.env.NODE_VERSION} mode.`);
+    console.log(`App is running on port ${PORT} in ${process.env.NODE_ENV} mode.`);
 })

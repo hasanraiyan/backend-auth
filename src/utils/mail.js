@@ -78,4 +78,4 @@ const forgetPasswordMailgenContent = (username, resetUrl) => {
     }
 }
 
-export { emailVerificationMailgenContent, forgetPasswordMailgenContent };
+export { emailVerificationMailgenContent, forgetPasswordMailgenContent,sendMail };
